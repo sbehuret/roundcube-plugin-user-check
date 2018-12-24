@@ -17,7 +17,7 @@ class user_check extends rcube_plugin
     {
         $rcmail = rcube::get_instance();
 
-        $user_check_enabled = $rcmail->config->get('user_check_enabled', FALSE);
+        $user_check_enabled = $rcmail->config->get('user_check_enabled', false);
         $user_check_during = $rcmail->config->get('user_check_during', 'both');
 
         if (!is_bool($user_check_enabled)) {
@@ -73,7 +73,7 @@ class user_check extends rcube_plugin
             return false;
     }
 
-	 public function authenticate($args)
+    public function authenticate($args)
     {
         $rcmail = rcube::get_instance();
 
@@ -85,8 +85,8 @@ class user_check extends rcube_plugin
         }
 
         if (!$this->filter_pass($args['user'])) {
-	         $args['abort'] = true;
-	         $args['error'] = $rcmail->config->get('user_check_denied', '');
+            $args['abort'] = true;
+            $args['error'] = $rcmail->config->get('user_check_denied', '');
         }
 
         return $args;
