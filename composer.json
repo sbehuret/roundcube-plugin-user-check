@@ -1,0 +1,25 @@
+{
+    "name": "sbehuret/user_check",
+    "type": "roundcube-plugin",
+    "description": "Roundcube plugin that checks if usernames belong to a whitelist or blacklist.",
+    "homepage": "https://github.com/sbehuret/roundcube-plugin-user-check",
+    "license": "GPLv3+",
+    "version": "1.0",
+    "authors": [
+        {
+            "name": "Sébastien Béhuret",
+            "email": "sebastien@behuret.net",
+	    "homepage": "https://sebastien.behuret.net/",
+            "role": "Author"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://plugins.roundcube.net"
+        }
+    ],
+    "require": {
+        "roundcube/plugin-installer": ">=0.1.6"
+    }
+}
