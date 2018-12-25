@@ -3,11 +3,11 @@
 /**
  * User Check
  *
- * Roundcube plugin that checks if usernames belong to a whitelist or blacklist.
+ * Roundcube plugin that checks if users belong to a whitelist or blacklist.
  *
  * https://github.com/sbehuret/roundcube-plugin-user-check
  *
- * @version 1.0
+ * @version 1.1
  * @author Sébastien Béhuret <sebastien@behuret.net>
  */
 
