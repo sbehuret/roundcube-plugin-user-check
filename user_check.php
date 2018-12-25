@@ -39,7 +39,7 @@ class user_check extends rcube_plugin
         if (in_array($user_check_during, array('session', 'both')) && $rcmail->user && $rcmail->user->ID && !$this->filter_pass($rcmail->user->data['username'])) {
             $rcmail->session->log('Aborting session for ' . $rcmail->user->data['username'] . ': Denied by user_check configuration');
             $rcmail->kill_session();
-	    exit();
+            exit();
         }
     }
 
@@ -64,13 +64,13 @@ class user_check extends rcube_plugin
         return explode('@', $login, 2);
     }
 
-    public function user_domain_match($user_domain, $filter)
+    public function user_domain_match($splitted_username, $splitted_filter)
     {
-        if ($filter[0] ==! null && $filter[1] === null && $user_domain[0] == $filter[0])
+        if ($splitted_filter[0] ==! null && $splitted_filter[1] === null && $splitted_username[0] == $splitted_filter[0])
             return true;
-        if ($filter[0] === null && $filter[1] ==! null && $user_domain[1] == $filter[1])
+        if ($splitted_filter[0] === null && $splitted_filter[1] ==! null && $splitted_username[1] == $splitted_filter[1])
             return true;
-        if ($filter[0] ==! null && $filter[1] ==! null && $user_domain[0] == $filter[0] && $user_domain[1] == $filter[1])
+        if ($splitted_filter[0] ==! null && $splitted_filter[1] ==! null && $splitted_username[0] == $splitted_filter[0] && $splitted_username[1] == $splitted_filter[1])
             return true;
         else
             return false;
@@ -116,11 +116,14 @@ class user_check extends rcube_plugin
         $filter_pass = ($user_check_mode == 'whitelist' ? false : true);
 
         foreach ($user_check_filters as $user_check_filter) {
-            if (self::user_domain_match($splitted_username, self::split_user_and_domain($user_check_filter))) {
+            $splitted_filter = self::split_user_and_domain($user_check_filter);
+
+            if (self::user_domain_match($splitted_username, $splitted_filter)) {
                 if ($user_check_mode == 'whitelist')
                     $filter_pass = true;
                 else
                     $filter_pass = false;
+
                 break;
             }
         }
