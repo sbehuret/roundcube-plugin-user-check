@@ -36,8 +36,11 @@ class user_check extends rcube_plugin
         if (in_array($user_check_during, array('authenticate', 'both')))
             $this->add_hook('authenticate', array($this, 'authenticate'));
 
-        if (in_array($user_check_during, array('session', 'both')) && $rcmail->user && $rcmail->user->ID && !$this->filter_pass($rcmail->user->data['username']))
+        if (in_array($user_check_during, array('session', 'both')) && $rcmail->user && $rcmail->user->ID && !$this->filter_pass($rcmail->user->data['username'])) {
+            $rcmail->session->log('Aborting session for ' . $rcmail->user->data['username'] . ': Denied by user_check configuration');
             $rcmail->kill_session();
+	    exit();
+        }
     }
 
     public function split_user_and_domain($login)
