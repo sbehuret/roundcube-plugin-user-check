@@ -7,7 +7,7 @@
  *
  * https://github.com/sbehuret/roundcube-plugin-user-check
  *
- * @version 1.1
+ * @version 1.2
  * @author Sébastien Béhuret <sebastien@behuret.net>
  */
 
