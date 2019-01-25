@@ -3,6 +3,13 @@
 // Enable user check?
 $config['user_check_enabled'] = true;
 
+// Master user separator:
+// Allow master users to log in by specifying the master username within the normal username
+// The format is <username><separator><master username>
+// null: disable master user login
+// non-empty string: separator to enable master users to log in
+$config['user_check_master_user_separator'] = '*';
+
 // User check mode:
 // 'whitelist': the username must match one of the filters
 // 'blacklist': the username must not match any of the filters

@@ -43,6 +43,27 @@ class user_check extends rcube_plugin
         }
     }
 
+    public function get_real_user($user, $master_user_separator)
+    {
+        $string_length = strlen($user);
+
+        if ($string_length == 0 || $user == $master_user_separator)
+            return $user;
+
+        $separator_position = strpos($user, $master_user_separator);
+
+        if ($separator_position === false)
+            return $user;
+
+        if ($separator_position === 0)
+            return '';
+
+        if ($separator_position === $string_length - 1)
+            return substr($user, 0, $string_length - 1);
+
+        return explode($master_user_separator, $user)[0];
+    }
+
     public function split_user_and_domain($login)
     {
         $string_length = strlen($login);
@@ -59,7 +80,7 @@ class user_check extends rcube_plugin
             return array(null, substr($login, 1, $string_length - 1));
 
         if ($at_position === $string_length - 1)
-            return array(substr($login, 0, strlen($login) - 1), null);
+            return array(substr($login, 0, $string_length - 1), null);
 
         return explode('@', $login, 2);
     }
@@ -81,13 +102,21 @@ class user_check extends rcube_plugin
         $rcmail = rcube::get_instance();
 
         $user_check_denied = $rcmail->config->get('user_check_denied', '');
+        $user_check_master_user_separator = $rcmail->config->get('user_check_master_user_separator', '*');
 
         if (!is_string($user_check_denied)) {
             $rcmail->write_log('errors', 'Setting user_check_denied must be a string that can be empty');
             return true;
         }
 
-        if (!$this->filter_pass($args['user'])) {
+        if (!is_null($user_check_master_user_separator) && !is_string($user_check_master_user_separator) || (is_string($user_check_master_user_separator) && !strlen($user_check_master_user_separator))) {
+            $rcmail->write_log('errors', 'Setting user_check_master_user_password must be null or a non-empty string');
+            return true;
+        }
+
+        $user = ($user_check_master_user_separator === null ? $args['user'] : self::get_real_user($args['user'], $user_check_master_user_separator));
+
+        if (!$this->filter_pass($user)) {
             $args['abort'] = true;
             $args['error'] = $rcmail->config->get('user_check_denied', '');
         }
