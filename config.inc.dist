@@ -25,7 +25,7 @@ $config['user_check_during'] = 'both';
 // user@domain.tld: match the full username
 // user or user@: only match the user portion of the username
 // @domain.tld: only match the domain portion of the username
-$config['user_check_filters'] = array('user1@domain1.tld', 'user2', '@domain2.tld');
+$config['user_check_filters'] = ['user1@domain1.tld', 'user2', '@domain2.tld'];
 
 // User check denied:
 // Error message shown if user check fails during login
