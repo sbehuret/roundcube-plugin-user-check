@@ -4,7 +4,7 @@
     "description": "Roundcube plugin that checks if users belong to a whitelist or blacklist.",
     "keywords": ["user","check","whitelist","blacklist","multi","domain","setup"],
     "homepage": "https://github.com/sbehuret/roundcube-plugin-user-check",
-    "license": "GPLv3+",
+    "license": "GPL-3.0-or-later",
     "version": "1.3",
     "authors": [
         {
