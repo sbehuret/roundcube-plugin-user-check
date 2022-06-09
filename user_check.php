@@ -15,6 +15,8 @@ class user_check extends rcube_plugin
 {
     public function init()
     {
+        rcube_plugin::load_config();
+
         $rcmail = rcube::get_instance();
 
         $user_check_enabled = $rcmail->config->get('user_check_enabled', false);
